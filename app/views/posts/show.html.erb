@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @post.name %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @post.post_description %>
+</p>
+<p>
+	<b>comments:<b>
+<%= @comment.count %> 
+</p>
+  <% @comment.each do |comment| %>
+  	<div class="comment">
+  	<h6><%= comment.name %> </br></h6>
+  	<%= comment.comment %>
+   <%= link_to "destroy", :action => "comment_destroy",:id => comment.id, :post_id => @post.id %>
+</div>
+  <% end %>
+ <% form_tag posts_comment_on_post_path do %>
+ <p>
+         <label> Name </label>
+   <%= text_field_tag :name %><br/>
+   <label> Comment </label>
+   <%= text_area_tag :comment %><br/>
+   <%= hidden_field_tag :post_id, @post.id %> 
+    <%= submit_tag "Comment", :name => nil %>
+ </p>
+<% end %>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
